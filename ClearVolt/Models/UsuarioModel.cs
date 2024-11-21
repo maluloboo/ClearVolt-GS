@@ -19,13 +19,13 @@ namespace ClearVolt.Domain.Models
         [Required]
         public string senha { get; set; }
 
-        [JsonIgnore]
-        [InverseProperty("Usuario")]
-        public ICollection<PessoaModel> Pessoas { get; set; }
+        [ForeignKey("Pessoa")]
+        public int id_pessoa { get; set; }
+        public PessoaModel Pessoa { get; set; }
 
-        [JsonIgnore]
-        [InverseProperty("Usuario")]
-        public ICollection<RoleModel> Roles { get; set; }
+        [ForeignKey("Role")]
+        public int id_role { get; set; }
+        public RoleModel Role { get; set; }
 
         [JsonIgnore]
         [InverseProperty("Usuario")]

@@ -4,6 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 
 namespace ClearVolt.Domain.Models
@@ -16,8 +17,8 @@ namespace ClearVolt.Domain.Models
         [Required]
         public string nome { get; set; }
 
-        [ForeignKey("Usuario")]
-        public int id_usuario { get; set; }
-        public UsuarioModel Usuario { get; set; }
+        [JsonIgnore]
+        [InverseProperty("Role")]
+        public ICollection<UsuarioModel> Usuario { get; set; }
     }
 }

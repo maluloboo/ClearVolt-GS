@@ -25,12 +25,12 @@ namespace ClearVolt.Domain.Models
         public int id_usuario { get; set; }
         public UsuarioModel Usuario { get; set; }
 
-        [JsonIgnore]
-        [InverseProperty("Dispositivo")]
-        public ICollection<ConfiguracaoColetaModel> ConfigColeta { get; set; }
+        [ForeignKey("Configuracao")]
+        public int id_configuracao { get; set; }
+        public ConfiguracaoColetaModel Configuracao { get; set; }
 
         [JsonIgnore]
-        [InverseProperty("Dispositivo")]
+        //[InverseProperty("Dispositivo")]
         public ICollection<DadoColetadoModel> DadoColetado { get; set; }
     }
 }
