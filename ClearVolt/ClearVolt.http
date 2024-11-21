@@ -1,0 +1,6 @@
+@ClearVolt_HostAddress = http://localhost:5135
+
+GET {{ClearVolt_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
