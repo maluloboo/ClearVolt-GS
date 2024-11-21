@@ -93,7 +93,7 @@ namespace ClearVolt.Services
                 _dbContext.Update(role);
                 await _dbContext.SaveChangesAsync();
 
-                return CriarResposta<RoleModel>(role, "Role editado com sucesso!");
+                return CriarResposta(role, "Role editado com sucesso!");
             }
             catch (Exception ex)
             {
@@ -116,7 +116,7 @@ namespace ClearVolt.Services
                 return CriarResposta<List<RoleModel>>(null, ex.Message, false);
             }
         }
-
+        
         public async Task<RespostaModel<RoleModel>> ListarRolePorId(int id_role)
         {
             RespostaModel<RoleModel> resposta = new RespostaModel<RoleModel>();

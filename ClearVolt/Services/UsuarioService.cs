@@ -139,7 +139,7 @@ namespace ClearVolt.Services
                 _dbContext.Update(usuario);
                 await _dbContext.SaveChangesAsync();
 
-                return CriarResposta<UsuarioModel>(usuario, "Usuário editado com sucesso!");
+                return CriarResposta(usuario, "Usuário editado com sucesso!");
             }
             catch (Exception ex)
             {
