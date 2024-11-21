@@ -1,4 +1,6 @@
 using ClearVolt.Data.Data;
+using ClearVolt.Interfaces;
+using ClearVolt.Services;
 using Microsoft.EntityFrameworkCore;
 using System;
 
@@ -23,6 +25,13 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+builder.Services.AddScoped<IUsuarioInterface, UsuarioService>();
+builder.Services.AddScoped<IRoleInterface, RoleService>();
+builder.Services.AddScoped<IPessoaInterface, PessoaService>();
+builder.Services.AddScoped<IConfiguracaoColetaInterface, ConfiguracaoColetaService>();
+builder.Services.AddScoped<IDispositivoInterface, DispositivoService>();
+builder.Services.AddScoped<IDadoColetadoInterface, DadoColetadoService>();
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -39,3 +48,5 @@ app.UseAuthorization();
 app.MapControllers();
 
 app.Run();
+
+builder.Services.AddScoped<IDispositivoInterface, DispositivoService>();
