@@ -12,7 +12,7 @@ using Oracle.EntityFrameworkCore.Metadata;
 namespace ClearVolt.Migrations
 {
     [DbContext(typeof(ClearVoltDbContext))]
-    [Migration("20241121174524_initial")]
+    [Migration("20241121205056_initial")]
     partial class initial
     {
         /// <inheritdoc />
@@ -37,9 +37,6 @@ namespace ClearVolt.Migrations
                         .IsRequired()
                         .HasColumnType("NVARCHAR2(2000)");
 
-                    b.Property<int>("id_dispositivo")
-                        .HasColumnType("NUMBER(10)");
-
                     b.Property<int>("intervalo_de_horas")
                         .HasColumnType("NUMBER(10)");
 
@@ -57,8 +54,6 @@ namespace ClearVolt.Migrations
                         .HasColumnType("NUMBER(10)");
 
                     b.HasKey("id_configuracao");
-
-                    b.HasIndex("id_dispositivo");
 
                     b.ToTable("Configuracao_Coleta");
                 });
@@ -102,6 +97,9 @@ namespace ClearVolt.Migrations
 
                     OraclePropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("id_dispositivo"));
 
+                    b.Property<int>("id_configuracao")
+                        .HasColumnType("NUMBER(10)");
+
                     b.Property<int>("id_usuario")
                         .HasColumnType("NUMBER(10)");
 
@@ -118,6 +116,8 @@ namespace ClearVolt.Migrations
                         .HasColumnType("NVARCHAR2(2000)");
 
                     b.HasKey("id_dispositivo");
+
+                    b.HasIndex("id_configuracao");
 
                     b.HasIndex("id_usuario");
 
@@ -139,9 +139,6 @@ namespace ClearVolt.Migrations
                     b.Property<DateTime>("data_nascimento")
                         .HasColumnType("TIMESTAMP(7)");
 
-                    b.Property<int>("id_usuario")
-                        .HasColumnType("NUMBER(10)");
-
                     b.Property<string>("nome")
                         .IsRequired()
                         .HasColumnType("NVARCHAR2(2000)");
@@ -156,8 +153,6 @@ namespace ClearVolt.Migrations
 
                     b.HasKey("id_pessoa");
 
-                    b.HasIndex("id_usuario");
-
                     b.ToTable("Pessoa");
                 });
 
@@ -169,16 +164,11 @@ namespace ClearVolt.Migrations
 
                     OraclePropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("id_role"));
 
-                    b.Property<int>("id_usuario")
-                        .HasColumnType("NUMBER(10)");
-
                     b.Property<string>("nome")
                         .IsRequired()
                         .HasColumnType("NVARCHAR2(2000)");
 
                     b.HasKey("id_role");
-
-                    b.HasIndex("id_usuario");
 
                     b.ToTable("Role");
                 });
@@ -195,24 +185,23 @@ namespace ClearVolt.Migrations
                         .IsRequired()
                         .HasColumnType("NVARCHAR2(2000)");
 
+                    b.Property<int>("id_pessoa")
+                        .HasColumnType("NUMBER(10)");
+
+                    b.Property<int>("id_role")
+                        .HasColumnType("NUMBER(10)");
+
                     b.Property<string>("senha")
                         .IsRequired()
                         .HasColumnType("NVARCHAR2(2000)");
 
                     b.HasKey("id_usuario");
 
+                    b.HasIndex("id_pessoa");
+
+                    b.HasIndex("id_role");
+
                     b.ToTable("Usuario");
-                });
-
-            modelBuilder.Entity("ClearVolt.Domain.Models.ConfiguracaoColetaModel", b =>
-                {
-                    b.HasOne("ClearVolt.Domain.Models.DispositivoModel", "Dispositivo")
-                        .WithMany("ConfigColeta")
-                        .HasForeignKey("id_dispositivo")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Dispositivo");
                 });
 
             modelBuilder.Entity("ClearVolt.Domain.Models.DadoColetadoModel", b =>
@@ -228,51 +217,65 @@ namespace ClearVolt.Migrations
 
             modelBuilder.Entity("ClearVolt.Domain.Models.DispositivoModel", b =>
                 {
+                    b.HasOne("ClearVolt.Domain.Models.ConfiguracaoColetaModel", "Configuracao")
+                        .WithMany("Dispositivo")
+                        .HasForeignKey("id_configuracao")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("ClearVolt.Domain.Models.UsuarioModel", "Usuario")
                         .WithMany("Dispositivos")
                         .HasForeignKey("id_usuario")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.Navigation("Configuracao");
+
                     b.Navigation("Usuario");
+                });
+
+            modelBuilder.Entity("ClearVolt.Domain.Models.UsuarioModel", b =>
+                {
+                    b.HasOne("ClearVolt.Domain.Models.PessoaModel", "Pessoa")
+                        .WithMany("Usuario")
+                        .HasForeignKey("id_pessoa")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("ClearVolt.Domain.Models.RoleModel", "Role")
+                        .WithMany("Usuario")
+                        .HasForeignKey("id_role")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Pessoa");
+
+                    b.Navigation("Role");
+                });
+
+            modelBuilder.Entity("ClearVolt.Domain.Models.ConfiguracaoColetaModel", b =>
+                {
+                    b.Navigation("Dispositivo");
+                });
+
+            modelBuilder.Entity("ClearVolt.Domain.Models.DispositivoModel", b =>
+                {
+                    b.Navigation("DadoColetado");
                 });
 
             modelBuilder.Entity("ClearVolt.Domain.Models.PessoaModel", b =>
                 {
-                    b.HasOne("ClearVolt.Domain.Models.UsuarioModel", "Usuario")
-                        .WithMany("Pessoas")
-                        .HasForeignKey("id_usuario")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.Navigation("Usuario");
                 });
 
             modelBuilder.Entity("ClearVolt.Domain.Models.RoleModel", b =>
                 {
-                    b.HasOne("ClearVolt.Domain.Models.UsuarioModel", "Usuario")
-                        .WithMany("Roles")
-                        .HasForeignKey("id_usuario")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.Navigation("Usuario");
-                });
-
-            modelBuilder.Entity("ClearVolt.Domain.Models.DispositivoModel", b =>
-                {
-                    b.Navigation("ConfigColeta");
-
-                    b.Navigation("DadoColetado");
                 });
 
             modelBuilder.Entity("ClearVolt.Domain.Models.UsuarioModel", b =>
                 {
                     b.Navigation("Dispositivos");
-
-                    b.Navigation("Pessoas");
-
-                    b.Navigation("Roles");
                 });
 #pragma warning restore 612, 618
         }
