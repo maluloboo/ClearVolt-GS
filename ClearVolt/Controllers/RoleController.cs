@@ -59,9 +59,9 @@ namespace ClearVolt.Controllers
         [HttpDelete("DeletarRole/{id_role}")]
         public async Task<ActionResult<RespostaModel<RoleModel>>> DeletarRole(int id_role)
         {
-            var user = await _RoleInterface.DeletarRole(id_role);
+            var role = await _RoleInterface.DeletarRole(id_role);
 
-            if (user.Dados == null)
+            if (role.Dados == null)
             {
                 return NotFound();
             }
