@@ -109,8 +109,8 @@ O padrão **DTO (Data Transfer Object)** é usado para transferir dados entre as
 No padrão MVC, os **Models** representam os dados e a lógica de negócios. Eles são responsáveis por interagir diretamente com o banco de dados através do **AppDbContext**, encapsulando a estrutura dos dados que serão manipulados pela aplicação e garantindo uma comunicação eficiente com o banco.
 
 # Integrantes
-- Matheus Felipe Camarinha Duarte
-- Munir Jamil Mahmoud Ayoub
-- Macirander Souza de Miranda Filho
-- Gabriel Eduardo de Paiva Oliveira
-- Maria Luiza De Oliveira Lobo
+- Gabriel Eduardo De Paiva Oliveira - RM: 98843
+- Macirander Souza De Miranda Filho - RM: 551416
+- Maria Luiza de Oliveira Lobo      - RM: 552169
+- Matheus Felipe Camarinha Duarte   - RM: 552295
+- Munir Jamil Mahmoud Ayoub         - RM: 555893
