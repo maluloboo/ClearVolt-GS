@@ -31,6 +31,7 @@ builder.Services.AddScoped<IPessoaInterface, PessoaService>();
 builder.Services.AddScoped<IConfiguracaoColetaInterface, ConfiguracaoColetaService>();
 builder.Services.AddScoped<IDispositivoInterface, DispositivoService>();
 builder.Services.AddScoped<IDadoColetadoInterface, DadoColetadoService>();
+builder.Services.AddScoped<IDispositivoInterface, DispositivoService>();
 
 var app = builder.Build();
 
@@ -49,4 +50,4 @@ app.MapControllers();
 
 app.Run();
 
-builder.Services.AddScoped<IDispositivoInterface, DispositivoService>();
+public partial class Program { }
