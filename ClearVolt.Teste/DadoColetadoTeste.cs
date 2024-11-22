@@ -116,8 +116,7 @@ namespace ClearVolt.Teste
             {
                 temperatura = 30,
                 umidade = 60,
-                // Falta data_dado e identificador
-                id_dispositivo = 1 // Supondo que exista um dispositivo com esse id
+                id_dispositivo = 1
             };
 
             // Act
@@ -137,7 +136,7 @@ namespace ClearVolt.Teste
                 umidade = 60,
                 data_dado = DateTime.UtcNow,
                 identificador = "12345",
-                id_dispositivo = 1 // Supondo que exista um dispositivo com esse id
+                id_dispositivo = 1
             };
 
             _dBContext.DadoColetado.Add(dadoColetado);

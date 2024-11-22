@@ -102,7 +102,7 @@ namespace ClearVolt.Teste
             // Arrange
             var dispositivo = new DispositivoModel
             {
-                nome = "Dispositivo Sem Marca", // Marca está faltando
+                nome = "Dispositivo Sem Marca",
                 identificador = "12345",
                 id_usuario = 1,
                 id_configuracao = 1

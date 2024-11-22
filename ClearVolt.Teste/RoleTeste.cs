@@ -87,7 +87,7 @@ namespace ClearVolt.Teste
             // Arrange
             var role = new RoleModel
             {
-                nome = ""  // Nome vazio para causar erro
+                nome = ""
             };
 
             // Act

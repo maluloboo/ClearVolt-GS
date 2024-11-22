@@ -95,7 +95,7 @@ namespace ClearVolt.Teste
             // Arrange
             var configuracao = new ConfiguracaoColetaModel
             {
-                nome = "",  // Nome vazio para causar erro
+                nome = "",
                 temp_max = 30,
                 umidade_min = 60,
                 tempo_de_umidade_min = 70

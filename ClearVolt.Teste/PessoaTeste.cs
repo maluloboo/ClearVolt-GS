@@ -39,7 +39,6 @@ namespace ClearVolt.Teste
                 telefone = "11987654321"
             };
 
-            // Adiciona a pessoa diretamente no banco
             _dBContext.Pessoa.Add(pessoa);
             _dBContext.SaveChanges();
 

@@ -36,8 +36,8 @@ namespace ClearVolt.Teste
             {
                 email = "gabriel@email.com",
                 senha = "Gabriel123@",
-                id_pessoa = 1, // Supondo que exista uma pessoa com esse id
-                id_role = 1 // Supondo que exista um papel com esse id
+                id_pessoa = 1,
+                id_role = 1
             };
 
             _dBContext.Usuarios.Add(usuario);

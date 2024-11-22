@@ -1,8 +1,9 @@
 using ClearVolt.Data.Data;
+using ClearVolt.DataIA;
 using ClearVolt.Interfaces;
 using ClearVolt.Services;
 using Microsoft.EntityFrameworkCore;
-using System;
+using Microsoft.OpenApi.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -10,7 +11,6 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddDbContext<ClearVoltDbContext>(options =>
 {
     options.UseOracle(builder.Configuration.GetConnectionString("OracleConnection"));
-        //sqlOptions => sqlOptions.MigrationsAssembly("ClearVolt.Data"));
 
     if (builder.Environment.IsDevelopment())
     {
@@ -18,12 +18,16 @@ builder.Services.AddDbContext<ClearVoltDbContext>(options =>
     }
 });
 
-// Add services to the container.
-
+//Add services to the container.
+builder.Services.AddSingleton<ClearVoltIAService>();
 builder.Services.AddControllers();
+
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
+builder.Services.AddSwaggerGen(c =>
+{
+    c.SwaggerDoc("v1", new OpenApiInfo { Title = "ClearVolt API", Version = "v1" });
+});
 
 builder.Services.AddScoped<IUsuarioInterface, UsuarioService>();
 builder.Services.AddScoped<IRoleInterface, RoleService>();
@@ -34,6 +38,9 @@ builder.Services.AddScoped<IDadoColetadoInterface, DadoColetadoService>();
 builder.Services.AddScoped<IDispositivoInterface, DispositivoService>();
 
 var app = builder.Build();
+
+var iaService = app.Services.GetRequiredService<ClearVoltIAService>();
+iaService.TrainModel();
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
